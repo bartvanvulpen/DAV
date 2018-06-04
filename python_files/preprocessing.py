@@ -1,9 +1,10 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import zipfile
 
-# read data
-data = pd.read_csv("stage3.csv")
+zf = zipfile.ZipFile('datasets/stage3.csv.zip') 
+data = pd.read_csv(zf.open('stage3.csv'))
 
 # function to delete column if more than 40% of the values is unknowm
 total_count = len(data)
