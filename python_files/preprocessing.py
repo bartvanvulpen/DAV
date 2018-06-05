@@ -40,6 +40,6 @@ for item in data["incident_characteristics"]:
     new_column.append(item)
 data["incident_characteristics"] = new_column
 print(data["incident_characteristics"])
-
+print('Branch test')
 # write processed dataframe to CSV
 # data.to_csv('DAV/datasets/full_dataset_clean.csv', sep=",")
