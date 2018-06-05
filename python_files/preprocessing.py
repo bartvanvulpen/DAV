@@ -24,7 +24,7 @@ for column in data.columns:
         data = data.drop(column, 1)
 
 # bewerkingen aan incidents_characteristics kolom
-#data["incident_characteristics"] = data["incident_characteristics"].fillna('shot')
+data["incident_characteristics"] = data["incident_characteristics"].fillna('shot')
 data["incident_characteristics"] = data["incident_characteristics"].str.lower()
 new_column = []
 for item in data["incident_characteristics"]:
