@@ -24,7 +24,7 @@ for column in data.columns:
         data = data.drop(column, 1)
 
 # bewerkingen aan incidents_characteristics kolom
-data["incident_characteristics"] = data["incident_characteristics"].fillna('shot')
+#data["incident_characteristics"] = data["incident_characteristics"].fillna('shot')
 data["incident_characteristics"] = data["incident_characteristics"].str.lower()
 new_column = []
 for item in data["incident_characteristics"]:
@@ -40,5 +40,6 @@ for item in data["incident_characteristics"]:
     new_column.append(item)
 data["incident_characteristics"] = new_column
 print(data["incident_characteristics"])
+
 # write processed dataframe to CSV
 # data.to_csv('DAV/datasets/full_dataset_clean.csv', sep=",")
