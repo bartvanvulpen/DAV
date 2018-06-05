@@ -1,6 +1,10 @@
 Answer to question5:
 Een branch representeert een ofhankelijke lijn van voortgang (proces) in de code.
 In de letterlijke zin zijn branches verwijzers naar commits.
-Zo heb je een master branch, voor de 'main' code, maar je kunt ook andere branches aanmaken en naartoe committen. Zo heb je aparte 'omgevingen' waarnaar je wijzigingen kunt sturen in git.
-Dit zorgt voor veel overzicht. Voor een groepsopdracht zou bijvoorbeeld iedereen kunnen werken op zijn eigen branch, en naar deze branch zijn veranderingen in de code committen. Vervolgens kunnen alle branches worden gemerged, zodat de wijzigingen samenvallen tot één branch.
-Je kan bijvoorbeeld ook een test branch aanmaken, indien de code in die test branch werkt na het testen, kan je hem in de master branch gooien door ze te mergen.
+Zo heb je een master branch, voor de 'main' code, maar je kunt ook andere branches aanmaken en naartoe committen.
+Zo heb je aparte 'omgevingen' waarnaar je wijzigingen kunt sturen in git.
+Dit zorgt voor veel overzicht. Voor een groepsopdracht zou bijvoorbeeld iedereen kunnen werken op zijn eigen branch,
+en naar deze branch zijn veranderingen in de code committen. Vervolgens kunnen alle branches worden gemerged,
+zodat de wijzigingen samenvallen tot één branch.
+Je kan bijvoorbeeld ook een test branch aanmaken, indien de code in die test branch werkt na het testen,
+kan je hem in de master branch gooien door ze te mergen.
