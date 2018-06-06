@@ -4,13 +4,14 @@ import matplotlib as plt
 import zipfile
 import sys
 import math
+from pandas import ExcelWriter
 
 # unzipping and reading full dataset
-#zf = zipfile.ZipFile('DAV/datasets/stage3.csv.zip')
-#data = pd.read_csv(zf.open('stage3.csv'))
+zf = zipfile.ZipFile('datasets/full_dataset_raw.csv.zip')
+data = pd.read_csv(zf.open('stage3.csv'))
 
 # testing functions with smaller dataset
-data = pd.read_csv('datasets/small_test_set.csv')
+#data = pd.read_csv('datasets/small_test_set.csv')
 
 # function to delete column if more than 40% of the values is unknowm
 total_count = len(data)
@@ -39,7 +40,8 @@ for item in data["incident_characteristics"]:
     item = item.replace("suicide^", "suicide")
     new_column.append(item)
 data["incident_characteristics"] = new_column
-print(data["incident_characteristics"])
-print('Branch test')
-# write processed dataframe to CSV
-# data.to_csv('DAV/datasets/full_dataset_clean.csv', sep=",")
+
+ #write processed dataframe to Excel testing sheet
+writer = ExcelWriter('datasets/full_dataset_excel_testing.xlsx')
+data.to_excel(writer,'testingsheet')
+writer.save()
