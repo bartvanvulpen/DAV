@@ -49,10 +49,35 @@ for item in data["incident_characteristics"]:
     item = item.replace(", ", ",")
     item = item.replace(")", "")
     item = item.replace("suicide^", "suicide")
+    item = item.replace("armed robbery with injury", "robbery")
+    item = item.replace("officer involved incident", "officer involved")
+    item = item.replace("officer involved shooting", "officer involved")
     new_column.append(item)
 data["incident_characteristics"] = new_column
+# counting characterics
+date = "2014-01-01"
+new_datecolumn = []
+for date in data["date"]:
+    date = date.replace("-","")
+    date = date[2:6]
+    new_datecolumn.append(date)
+data["date"] = new_datecolumn
 
-#write processed dataframe to Excel testing sheet
+
+itemcount = 0
+for item in data["incident_characteristics"]:
+    itemlist = item.split(",")
+    if "suicide" in itemlist and not "murder" in itemlist:
+        itemcount = itemcount + 1
+
+print("itemcount = ",itemcount)
+# counting fatal incidents
+dead_count = 0
+for number_killed in data["n_killed"]:
+    if number_killed > 0:
+        dead_count = dead_count + 1
+print(dead_count)
+# write processed dataframe to Excel testing sheet
 writer = ExcelWriter('datasets/full_dataset_excel_testing.xlsx')
 data.to_excel(writer,'testingsheet')
 writer.save()
