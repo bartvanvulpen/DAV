@@ -36,10 +36,10 @@ data = data.drop("congressional_district", 1)
 data = data.drop("sources", 1)
 data = data.drop("state_house_district", 1)
 data = data.drop("state_senate_district", 1)
-#data = data.drop("notes", 1)
+data = data.drop("notes", 1)
 data = data.drop("participant_status", 1)
 data = data.drop("participant_type", 1)
-#data = data.drop("participant_age", 1)
+data = data.drop("participant_age", 1)
 # bewerkingen aan incidents_characteristics kolom
 data["incident_characteristics"] = data["incident_characteristics"].fillna('shot')
 data["incident_characteristics"] = data["incident_characteristics"].str.lower()
@@ -118,7 +118,7 @@ for item in data["incident_characteristics"]:
     itemlist = item.split(",")
     if "evidence of dgu found" in itemlist:
         itemcount = itemcount + 1
-        
+
 # setting boolean columns for incident_characteristics, after that, removing incident_characteristics column
 data['domestic_violence'] = 0
 data['robbery'] = 0
