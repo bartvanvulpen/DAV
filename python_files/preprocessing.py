@@ -36,10 +36,10 @@ data = data.drop("congressional_district", 1)
 data = data.drop("sources", 1)
 data = data.drop("state_house_district", 1)
 data = data.drop("state_senate_district", 1)
-data = data.drop("notes", 1)
+#data = data.drop("notes", 1)
 data = data.drop("participant_status", 1)
 data = data.drop("participant_type", 1)
-data = data.drop("participant_age", 1)
+#data = data.drop("participant_age", 1)
 # bewerkingen aan incidents_characteristics kolom
 data["incident_characteristics"] = data["incident_characteristics"].fillna('shot')
 data["incident_characteristics"] = data["incident_characteristics"].str.lower()
@@ -58,7 +58,9 @@ for item in data["incident_characteristics"]:
     item = item.replace("officer involved incident", "officer involved")
     item = item.replace("officer involved shooting", "officer involved")
     new_column.append(item)
+
 data["incident_characteristics"] = new_column
+
 
 # bewerkingen gender kolom
 data["participant_gender"] = data["participant_gender"].fillna('male')
@@ -111,6 +113,12 @@ for date in data["date"]:
     new_datecolumn.append(date)
 data["date"] = new_datecolumn
 
+itemcount = 0
+for item in data["incident_characteristics"]:
+    itemlist = item.split(",")
+    if "evidence of dgu found" in itemlist:
+        itemcount = itemcount + 1
+        
 # setting boolean columns for incident_characteristics, after that, removing incident_characteristics column
 data['domestic_violence'] = 0
 data['robbery'] = 0
@@ -119,6 +127,8 @@ data['drug_involvement'] = 0
 data['suicide'] = 0
 data['officer_involved'] = 0
 data['accidental'] = 0
+data['dgu_evidence'] = 0
+data['gang_involvement'] = 0
 
 for index, item in data["incident_characteristics"].iteritems():
     itemlist = item.split(",")
@@ -136,14 +146,11 @@ for index, item in data["incident_characteristics"].iteritems():
         data.at[index, 'officer_involved'] = 1
     if "accidental" in itemlist:
         data.at[index, 'accidental'] = 1
+    if "evidence of dgu found" in itemlist:
+        data.at[index, 'dgu_evidence'] = 1
+    if "gang involvement" in itemlist:
+        data.at[index, 'gang_involvement'] = 1
 
-
-# counting characterics
-itemcount = 0
-for item in data["incident_characteristics"]:
-    itemlist = item.split(",")
-    if "domestic violence" in itemlist and not "murder" in itemlist:
-        itemcount = itemcount + 1
 
 data = data.drop("incident_characteristics", 1)
 #print("itemcount = ",itemcount)
