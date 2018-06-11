@@ -7,7 +7,8 @@ from sklearn import preprocessing
 import math
 from pandas import ExcelWriter
 import re
-
+from geopy import geocoders
+import time
 # unzipping and reading full dataset
 zf = zipfile.ZipFile('datasets/full_dataset_raw.csv.zip')
 
@@ -17,8 +18,9 @@ print('Starting preprocessing...')
 # testing functions with smaller dataset
 #data = pd.read_csv('datasets/small_test_set.csv')
 
-# function to delete column if more than 40% of the values is unknowm
+# function to delete column if more than 40% of the values is unknown
 total_count = len(data)
+print(len(data))
 
 for column in data.columns:
     items = data[column]
@@ -60,6 +62,27 @@ for item in data["incident_characteristics"]:
     new_column.append(item)
 
 data["incident_characteristics"] = new_column
+
+# removing parentheses in city_or_county
+newcitylist = []
+for city in data["city_or_county"]:
+    city = re.sub(" [\(\[].*?[\)\]]", "", city)
+    if city == "Harrison":
+        city = "Cadiz"
+    elif city == "Liberty":
+        city = "Liberty County"
+    elif city == "Midland":
+        city = "Midland County"
+    elif city == "Mc Kees Rocks":
+        city = "Pittsburgh"
+    elif city == "Haywood":
+        city = "Waynesville"
+    elif city == "Taylor":
+        city = "Abilene"
+    newcitylist.append(city)
+
+data["city_or_county"] = newcitylist
+
 
 
 # bewerkingen gender kolom
@@ -129,6 +152,9 @@ data['officer_involved'] = 0
 data['accidental'] = 0
 data['dgu_evidence'] = 0
 data['gang_involvement'] = 0
+data['adults_involved'] = 0
+data['children_involved'] = 0
+data['teens_involved'] = 0
 
 for index, item in data["incident_characteristics"].iteritems():
     itemlist = item.split(",")
@@ -167,12 +193,12 @@ data['city_or_county'] = le.fit_transform(data['city_or_county'])
 data['state'] = le.fit_transform(data['state'])
 
 # reverse LabelEncoder
-# data['city_or_county'] = le.inverse_transform(data['city_or_county'])
+#data['city_or_county'] = le.inverse_transform(data['city_or_county'])
 
 print("Preprocessing successful!")
 print("Writing output to .xlsx file...")
 # write processed dataframe to Excel testing sheet
-writer = ExcelWriter('datasets/full_dataset_excel_testing.xlsx')
-data.to_excel(writer,'testingsheet')
-writer.save()
+#writer = ExcelWriter('datasets/full_dataset_excel_testing.xlsx')
+#data.to_excel(writer,'testingsheet')
+#writer.save()
 print("Output written to .xlsx file!")
