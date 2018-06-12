@@ -6,6 +6,8 @@ import sys
 from pandas import ExcelWriter
 import re
 from pandas import ExcelFile
+# Bestand om even te checken of overal een waarde is ingevuld in de master_dataset
+
 print("Starting check...")
 data = pd.read_excel('datasets/MASTER_DATASET.xlsx')
 print("Datafile opened, now checking...")
