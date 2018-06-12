@@ -9,6 +9,9 @@ from pandas import ExcelWriter
 import re
 from geopy import geocoders
 import time
+import geocoder
+from pygeocoder import Geocoder
+from geopy import exc
 # unzipping and reading full dataset
 zf = zipfile.ZipFile('datasets/full_dataset_raw.csv.zip')
 
@@ -40,34 +43,60 @@ list_city = []
 list_lat = []
 list_long = []
 list_index = []
+list_state = []
 count = 0
 for index, item in data["latitude"].iteritems():
-    city = data["city_or_county"][index]
-    if index > 100095:
+    if index >= 0:
         if pd.isna(item):
-            print(city, index)
-            geolocator = geocoders.Nominatim()
-            location = geolocator.geocode(city)
+
             count = count + 1
-            if location:
-                lat= location.latitude
-                lon= location.longitude
-                list_city.append(city)
-                list_lat.append(lat)
-                list_long.append(lon)
-                list_index.append(index)
-            else:
-                list_city.append(city)
-                list_lat.append("unknown")
-                list_long.append("unknown")
-                list_index.append(index)
-            if index > 120000:
-                break
+        if index > 100000:
+            break
+print(count)
+geolocator = geocoders.Nominatim()
+# recursive function to get around the timeout
+def do_geocode(query):
+    try:
+        return geolocator.geocode(query)
+    # if there's an time out error, just try again
+    except exc.GeocoderTimedOut:
+        return do_geocode(query)
+# the loop to get the geocodes using do_geocode recursive function
+count = 0
 
-            time.sleep(0.5)
 
-print("count", count)
-columns = ['city', 'lat', 'long', 'index']
+for index, item in data["latitude"].iteritems():
+    city = data["city_or_county"][index]
+    state = data["state"][index]
+    query = str(city + ", " + state)
+    
+
+    if pd.isna(item):
+        print(city, index)
+        count = count + 1
+
+        location = do_geocode(query)
+        print((count / 2262)*100)
+        if location:
+            lat= location.latitude
+            lon= location.longitude
+            list_city.append(city)
+            list_lat.append(lat)
+            list_long.append(lon)
+            list_index.append(index)
+            list_state.append(state)
+        else:
+            list_city.append(city)
+            list_lat.append("unknown")
+            list_long.append("unknown")
+            list_index.append(index)
+            list_state.append(state)
+
+    time.sleep(0.5)
+
+
+
+columns = ['state', 'city', 'lat', 'long', 'index']
 df = pd.DataFrame(columns=columns)
 df['city'] = list_city
 df['lat'] = list_lat
@@ -76,3 +105,4 @@ df['index'] = list_index
 writer = ExcelWriter('datasets/ll_test.xlsx')
 df.to_excel(writer,'testingsheet_ll')
 writer.save()
+print("testingsheet written")

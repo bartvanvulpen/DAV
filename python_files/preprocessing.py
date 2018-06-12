@@ -7,6 +7,7 @@ from sklearn import preprocessing
 import math
 from pandas import ExcelWriter
 import re
+from pandas import ExcelFile
 from geopy import geocoders
 import time
 # unzipping and reading full dataset
@@ -14,13 +15,14 @@ zf = zipfile.ZipFile('datasets/full_dataset_raw.csv.zip')
 
 data = pd.read_csv(zf.open('stage3.csv'))
 print('Starting preprocessing...')
-
+missing_cd = pd.read_csv(zf.open('stage3.csv'))
 # testing functions with smaller dataset
 #data = pd.read_csv('datasets/small_test_set.csv')
 
 # function to delete column if more than 40% of the values is unknown
 total_count = len(data)
 print(len(data))
+
 
 for column in data.columns:
     items = data[column]
@@ -82,8 +84,14 @@ for city in data["city_or_county"]:
     newcitylist.append(city)
 
 data["city_or_county"] = newcitylist
-
-
+missing_cd = pd.read_excel('datasets/mastered_ll.xlsx')
+#filling the missing coordinates with the missing_lon_lat data file
+for index, item in data["latitude"].iteritems():
+    if pd.isna(item):
+        for idx, item2 in missing_cd["index"].iteritems():
+            if index == item2:
+                data.at[index, 'latitude'] = missing_cd["lat"][idx]
+                data.at[index, 'longitude'] = missing_cd["long"][idx]
 
 # bewerkingen gender kolom
 data["participant_gender"] = data["participant_gender"].fillna('male')
@@ -128,6 +136,7 @@ data["participant_age_group"] = new_agegroup_column
 data
 data.rename(columns={'participant_gender':'participant_gender_involved'}, inplace=True)
 # reorganizing date structure
+
 date = "2014-01-01"
 new_datecolumn = []
 for date in data["date"]:
@@ -142,7 +151,7 @@ for item in data["incident_characteristics"]:
     if "evidence of dgu found" in itemlist:
         itemcount = itemcount + 1
 
-# setting boolean columns for incident_characteristics, after that, removing incident_characteristics column
+
 data['domestic_violence'] = 0
 data['robbery'] = 0
 data['home_invasion'] = 0
@@ -156,6 +165,19 @@ data['adults_involved'] = 0
 data['children_involved'] = 0
 data['teens_involved'] = 0
 
+# setting boolean columns for participant_age_group, after that, removing participant_age_group column
+for index, item in data["participant_age_group"].iteritems():
+    itemlist = item.split(",")
+    if "18+" in itemlist:
+        data.at[index, 'adults_involved'] = 1
+    if "12-17" in itemlist:
+        data.at[index, 'teens_involved'] = 1
+    if "0-11" in itemlist:
+        data.at[index, 'children_involved'] = 1
+
+data = data.drop("participant_age_group", 1)
+
+# setting boolean columns for incident_characteristics, after that, removing incident_characteristics column
 for index, item in data["incident_characteristics"].iteritems():
     itemlist = item.split(",")
     if "domestic violence" in itemlist:
@@ -198,7 +220,7 @@ data['state'] = le.fit_transform(data['state'])
 print("Preprocessing successful!")
 print("Writing output to .xlsx file...")
 # write processed dataframe to Excel testing sheet
-#writer = ExcelWriter('datasets/full_dataset_excel_testing.xlsx')
-#data.to_excel(writer,'testingsheet')
-#writer.save()
+writer = ExcelWriter('datasets/MASTER_DATASET.xlsx')
+data.to_excel(writer,'testingsheet')
+writer.save()
 print("Output written to .xlsx file!")
