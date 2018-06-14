@@ -69,40 +69,39 @@ for index, item in data["latitude"].iteritems():
     city = data["city_or_county"][index]
     state = data["state"][index]
     query = str(city + ", " + state)
-    
+
 
     if pd.isna(item):
-        print(city, index)
+        #print(query, index)
         count = count + 1
 
-        location = do_geocode(query)
-        print((count / 2262)*100)
-        if location:
-            lat= location.latitude
-            lon= location.longitude
-            list_city.append(city)
-            list_lat.append(lat)
-            list_long.append(lon)
-            list_index.append(index)
-            list_state.append(state)
-        else:
-            list_city.append(city)
-            list_lat.append("unknown")
-            list_long.append("unknown")
-            list_index.append(index)
-            list_state.append(state)
-
-    time.sleep(0.5)
+        #location = do_geocode(query)
+        #print((count / 2262)*100)
+        #if location:
+            #lat = location.latitude
+            #lon = location.longitude
+            #list_city.append(city)
+            #list_lat.append(lat)
+            #list_long.append(lon)
+            #list_index.append(index)
+        list_state.append(state)
 
 
 
-columns = ['state', 'city', 'lat', 'long', 'index']
+
+    
+
+
+
+
+
+
+columns = ['state']
 df = pd.DataFrame(columns=columns)
-df['city'] = list_city
-df['lat'] = list_lat
-df['long'] = list_long
-df['index'] = list_index
-writer = ExcelWriter('datasets/ll_test.xlsx')
+print(list_state)
+df['state'] = list_state
+
+writer = ExcelWriter('datasets/ll_test_states.xlsx')
 df.to_excel(writer,'testingsheet_ll')
 writer.save()
 print("testingsheet written")

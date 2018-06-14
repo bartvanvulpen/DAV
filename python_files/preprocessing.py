@@ -21,7 +21,6 @@ missing_cd = pd.read_csv(zf.open('stage3.csv'))
 
 # function to delete column if more than 40% of the values is unknown
 total_count = len(data)
-print(len(data))
 
 
 for column in data.columns:
@@ -84,7 +83,7 @@ for city in data["city_or_county"]:
     newcitylist.append(city)
 
 data["city_or_county"] = newcitylist
-missing_cd = pd.read_excel('datasets/mastered_ll.xlsx')
+missing_cd = pd.read_excel('datasets/best_missing_lat_lon.xlsx')
 #filling the missing coordinates with the missing_lon_lat data file
 for index, item in data["latitude"].iteritems():
     if pd.isna(item):

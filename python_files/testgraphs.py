@@ -1,12 +1,15 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import zipfile
 #
 #Graph numbers killed split by year
 #
+zf = zipfile.ZipFile('datasets/full_dataset_raw.csv.zip')
 
+data = pd.read_csv(zf.open('stage3.csv'))
 #split n_killed numbers based on year
-data4 = pd.read_csv("stage3.csv")
+
 kills_14 = 0
 kills_15 = 0
 kills_16 = 0
@@ -28,7 +31,7 @@ print(kills_15)
 print(kills_16)
 print(kills_17)
 print(kills_18)
- 
+
 #instantiate x and y
 objects = ('2014', '2015', '2016', '2017', '2018')
 y_pos = np.arange(len(objects))
@@ -87,22 +90,22 @@ plt.show()
 n_groups = 5
 killed = (kills_14, kills_15, kills_16, kills_17, kills_18)
 injured = (injured_14, injured_15, injured_16, injured_17, injured_18)
- 
+
 # plot graph
 fig, ax = plt.subplots()
 index = np.arange(n_groups)
 bar_width = 0.35
 opacity = 0.8
- 
+
 rects1 = plt.bar(index, killed, bar_width,
                  alpha=opacity,
                  color='#268328',
                  label='Killed')
- 
+
 rects2 = plt.bar(index + bar_width, injured, bar_width,
                  alpha=opacity,
                  color='#20CA23',
-                 label='Injured') 
+                 label='Injured')
 plt.xlabel('Year')
 plt.title('Kills and injuries by year')
 plt.xticks(index + bar_width/2, ('2014', '2015', '2016', '2017', '2018'))
@@ -147,7 +150,7 @@ for element in top_10:
     numbers.append(element[1])
 
 #plot graph
-fig = plt.figure()    
+fig = plt.figure()
 y_pos = np.arange(len(states))
 plt.bar(y_pos, numbers, align='center', color='#20CA23')
 plt.xticks(y_pos, states)
