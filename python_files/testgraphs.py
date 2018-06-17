@@ -5,6 +5,7 @@ import zipfile
 #
 #Graph numbers killed split by year
 #
+
 zf = zipfile.ZipFile('datasets/full_dataset_raw.csv.zip')
 
 data = pd.read_csv(zf.open('stage3.csv'))
@@ -158,3 +159,22 @@ plt.ylabel('Incidents')
 plt.title('Incidents per state')
 fig.autofmt_xdate()
 plt.show()
+
+# Comments: 
+# Grafiek 1, Deaths by year:
+# Er is duidelijk een stijgende lijn te zien in de doden per jaar van 2014 tot 2017.
+# Er is weinig te zeggen over 2018, doordat er alleen data is van de eerste paar maanden. 
+# 
+# Grafiek 2, Injured by year: Eenzelfde stijgende lijn als in grafiek 1 is hier ook zichtbaar.
+# 
+# Grafiek 3, grafiek 1 en 2 in een grafiek: Als de grafieken met elkaar vergeleken worden,
+# wordt duidelijk dat de verhouding doden/gewonden ongeveer gelijk blijft, zo'n 1:2.
+# 
+# Grafiek 4, aantallen specificaties: In de dataset is aanvullende informatie gegeven
+# over specifieke incidenten. Deze zijn ingedeeld in een aantal vaste woorden die het vaakst voorkomen.
+# 
+# Grafiek 5, incidenten per staat: Hier zijn de top 10 landen met meeste incidenten aangegeven.
+# Interessant om hier te onderzoeken is waarom illinois en california bijvoorbeeld specifiek zo
+# zo veel incidenten hebben, komt dat door inwonersaantallen of zijn er andere elementen die meespelen?
+#
+
