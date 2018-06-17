@@ -178,3 +178,83 @@ plt.show()
 # zo veel incidenten hebben, komt dat door inwonersaantallen of zijn er andere elementen die meespelen?
 #
 
+allstates = []
+allnumbers = []
+
+for element in all_states:
+    allstates.append(element[0])
+    allnumbers.append(element[1])
+
+#searched up data of population of individual states
+d ={'California': 39144818,
+'Texas': 27469114,
+'Florida':20271272,
+'New York': 19795791,
+'Illinois':12859995,
+'Pennsylvania':12802503,
+'Ohio':11613423,
+'Georgia':10214860,
+'North Carolina':10042802,
+'Michigan':9922576,
+'New Jersey':8958013,
+'Virginia':8382993,
+'Washington':7170351,
+'Arizona':6828065,
+'Massachusetts':6794422,
+'Indiana':6619680,
+'Tennessee':6600299,
+'Missouri':6083672,
+'Maryland':6006401,
+'Wisconsin':5771337,
+'Minnesota':5489594,
+'Colorado':5456574,
+'South Carolina':4896146,
+'Alabama':4858979,
+'Louisiana':4670724,
+'Kentucky':4425092,
+'Oregon':4028977,
+'Oklahoma':3911338,
+'Connecticut':3590886,
+'Iowa':3123899,
+'Utah':2995919,
+'Mississippi':2992333,
+'Arkansas':2978204,
+'Kansas':2911641,
+'Nevada':2890845,
+'New Mexico':2085109,
+'Nebraska':1896190,
+'West Virginia':1844128,
+'Idaho':1654930,
+'Hawaii':1431603,
+'New Hampshire':1330608,
+'Maine':1329328,
+'Rhode Island':1056298,
+'Montana':1032949,
+'Delaware':945934,
+'South Dakota':858469,
+'North Dakota':756927,
+'Alaska':738432,
+'Vermont':626042,
+'Wyoming':586107,
+'District of Columbia': 693972}
+
+population = []
+#couple amount of incidents of state to population of state
+for x in allstates:
+    for y in d:
+        if x == y:
+            population.append(d[y])
+
+#plot graph
+x = population
+y = allnumbers
+plt.scatter(x,y)
+z = np.polyfit(x, y, 1)
+p = np.poly1d(z)
+plt.plot(x,p(x),"r--")
+plt.show()
+
+# Waarnemingen: Het plotten van de grafiek geeft niet heel duidelijke resultaten.
+# De staten met de meeste incidenten zijn vrijwel uitsluitend grote staten, maar hier zijn wel veel verschillen in. 
+# Zo is illinois met 12859995 een stuk lager qua inwonersaantal dan california met 39144818, maar illinois heeft meer incidenten.
+
