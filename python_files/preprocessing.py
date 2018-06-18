@@ -210,8 +210,8 @@ for number_killed in data["n_killed"]:
 
 # labelling cities and states with digits
 le = preprocessing.LabelEncoder()
-data['city_or_county'] = le.fit_transform(data['city_or_county'])
-data['state'] = le.fit_transform(data['state'])
+#data['city_or_county'] = le.fit_transform(data['city_or_county'])
+#ata['state'] = le.fit_transform(data['state'])
 
 # reverse LabelEncoder
 #data['city_or_county'] = le.inverse_transform(data['city_or_county'])
