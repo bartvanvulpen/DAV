@@ -258,3 +258,176 @@ plt.show()
 # De staten met de meeste incidenten zijn vrijwel uitsluitend grote staten, maar hier zijn wel veel verschillen in. 
 # Zo is illinois met 12859995 een stuk lager qua inwonersaantal dan california met 39144818, maar illinois heeft meer incidenten.
 
+print("Starting reading data...")
+data = pd.read_excel('datasets/MASTER_DATASET.xlsx')
+
+
+#
+# Incidenten per maand
+# 
+
+jan = 0
+feb = 0
+mar= 0
+apr = 0
+mei = 0
+jun = 0
+jul = 0
+aug = 0
+sep = 0
+okt = 0
+nov = 0
+dec = 0
+for date in data["date"]:
+    date = str(date)
+    if "01" in date:
+        jan = jan+1
+    if "02" in date:
+        feb = feb+1
+    if "03" in date:
+        mar = mar+1
+    if "04" in date:
+        apr = apr+1
+    if "05" in date:
+        mei = mei+1
+    if "06" in date:
+        jun = jun+1
+    if "07" in date:
+        jul=jul+1
+    if "08" in date:
+        aug=aug+1
+    if "09" in date:
+        sep=sep+1
+    if "10" in date:
+        okt=okt+1
+    if "11" in date:
+        nov=nov+1
+    if "12" in date:
+        dec=dec+1
+
+        
+#plot graph 
+fig = plt.figure()
+objects = ('jan','feb','mar','apr','mei','jun','jul','aug','sep','okt','nov','dec')
+y_pos = np.arange(len(objects))
+performance = [jan, feb, mar, apr, mei, jun, jul, aug, sep, okt, nov, dec]
+print(performance)
+print(sum(performance))
+plt.bar(y_pos, performance, align='center', color='#20CA23')
+plt.xticks(y_pos, objects)
+plt.title('Incidenten per maand')
+plt.show()
+
+
+#Incidenten per maand
+#
+#Meeste incidenten vinden plaats in januari en maart. Hierna zijn de hoogste waarden juist in de zomer(juli en augustus) en zijn december en november het laagste. 
+#Wintermaanden kan misschien verklaard worden met de natuurlijke associatie van het koude weer met depressie, 
+#Algemeen wordt hierdoor veronderstelt dat er meer zelfmoorden/zelfmoordpogingen in de winter zijn. Februari is hierbij
+#waarschijnlijk lager omdat deze maand een paar dagen korter is.
+#Deze incidenten zijn echter niet uitsluitend suicide-situaties, dus het is moeilijk te zeggen in hoeverre dit van toepassing is.
+
+
+jan_killed = 0
+feb_killed = 0
+mar_killed= 0
+apr_killed = 0
+mei_killed = 0
+jun_killed = 0
+jul_killed = 0
+aug_killed = 0
+sep_killed = 0
+okt_killed = 0
+nov_killed = 0
+dec_killed = 0
+
+jan_injured = 0
+feb_injured = 0
+mar_injured= 0
+apr_injured = 0
+mei_injured = 0
+jun_injured = 0
+jul_injured = 0
+aug_injured = 0
+sep_injured = 0
+okt_injured = 0
+nov_injured = 0
+dec_injured = 0
+
+for date, killed, injured in zip(data["date"], data["n_killed"], data["n_injured"]):
+    date = str(date)
+    if "01" in date:
+        jan_killed = jan_killed+killed
+        jan_injured = jan_injured+injured
+    if "02" in date:
+        feb_killed = feb_killed+killed
+        feb_injured = feb_injured+injured
+    if "03" in date:
+        mar_killed = mar_killed+killed
+        mar_injured = mar_injured+injured
+    if "04" in date:
+        apr_killed = apr_killed+killed
+        apr_injured = apr_injured+injured
+    if "05" in date:
+        mei_killed = mei_killed+killed
+        mei_injured = mei_injured+injured
+    if "06" in date:
+        jun_killed = jun_killed+killed
+        jun_injured= jun_injured+injured
+    if "07" in date:
+        jul_killed=jul_killed+killed
+        jul_injured = jul_injured+injured
+    if "08" in date:
+        aug_killed=aug_killed+killed
+        aug_injured = aug_injured+injured
+    if "09" in date:
+        sep_killed=sep_killed+killed
+        sep_injured = sep_injured+injured
+    if "10" in date:
+        okt_killed=okt_killed+killed
+        okt_injured = okt_injured+injured
+    if "11" in date:
+        nov_killed=nov_killed+killed
+        nov_injured = nov_injured+injured
+    if "12" in date:
+        dec_killed=dec_killed+killed
+        dec_injured = dec_injured+injured
+        
+
+        
+#plot graph
+n_groups = 12
+killed = (jan_killed, feb_killed, mar_killed, apr_killed, mei_killed,jun_killed,jul_killed, aug_killed, sep_killed, okt_killed, nov_killed, dec_killed)
+injured = (jan_injured, feb_injured, mar_injured, apr_injured, mei_injured, jun_injured, jul_injured, aug_injured, sep_injured, okt_injured, nov_injured, dec_injured )
+print(killed)
+print(injured)
+fig, ax = plt.subplots()
+index = np.arange(n_groups)
+bar_width = 0.35
+opacity = 0.8
+ 
+rects1 = plt.bar(index, killed, bar_width,
+                 alpha=opacity,
+                 color='#268328',
+                 label='Killed')
+ 
+rects2 = plt.bar(index + bar_width, injured, bar_width,
+                 alpha=opacity,
+                 color='#20CA23',
+                 label='Injured')
+ 
+plt.xlabel('Year')
+plt.title('Kills and injuries by month')
+plt.xticks(index + bar_width/2, ('jan','feb','mar','apr','mei','jun','jul','aug','sep','okt','nov','dec'))
+plt.legend()
+ 
+plt.tight_layout()
+plt.show()
+
+
+#Kills/Injuries per maand
+#
+#Opvallend andere indeling dan aantal incidenten. Hoogste waarden bij kills zijn januari en maart, waarbij de laagste
+#waarde april is. Hoogste waarden bij injuries zijn juli, januari en augustus die allen dicht bij elkaar zitten,
+#met als laagste waarden februari. Wat opvalt hierbij is dat de verhouding van doden en gewonden verschild per maand, 
+# februari is het laagste in gewonden, maar zit in de top 5 bij doden. 
