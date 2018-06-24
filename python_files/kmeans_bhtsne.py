@@ -9,7 +9,6 @@ import pandas as pd
 import numpy as np
 import bhtsne
 from pandas import ExcelWriter
-from tsne import tsne
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 from sklearn import metrics
@@ -42,7 +41,7 @@ print("Done.")
 
 print("Splitting dataset into training set and test set...")
 train, test = train_test_split(data, test_size=0.2)
-train = train.drop(train.index[1000:239398])
+#train = train.drop(train.index[1000:239399])
 print("Number of dimensions:", len(train.columns))
 print(train)
 print("Done.")
@@ -60,8 +59,9 @@ else:
 
 embedding_array = bhtsne.run_bh_tsne(data1, no_dims=2, perplexity=4, initial_dims=data1.shape[1], verbose=True)
 tsne_data = pd.DataFrame(embedding_array[0:, 0:,])
+plt.figure(figsize=(18, 16), dpi=180)
 plt.scatter(tsne_data[0] , tsne_data[1], s=1,c='g', alpha=0.3)
-plt.title("Dimension reduced with t-SNE")
+plt.title("Dimensions reduced with t-SNE")
 plt.savefig("figures/tsne.png")
 plt.show()
 
@@ -76,6 +76,7 @@ for k in K:
     distortions.append(sum(np.min(cdist(X, kmeanModel.cluster_centers_, 'euclidean'), axis=1)) / X.shape[0])
 
 # Plot the elbow
+plt.figure(figsize=(18, 16), dpi=180)
 plt.plot(K, distortions, 'bx-')
 plt.xlabel('k')
 plt.ylabel('Distortion')
@@ -103,9 +104,9 @@ for cluster in tsne_data['cluster']:
     if cluster == 3:
         color_list.append('orange')
 tsne_data['color'] = color_list
-
+plt.figure(figsize=(18, 16), dpi=360)
 plt.scatter(tsne_data[0], tsne_data[1], s=1,c=tsne_data['color'], alpha=0.3)
 plt.savefig("figures/kmeans_tsne.png")
-plt.title('Clustered t-SNE')
+plt.title('Clustered t-SNE with k-Means')
 plt.show()
 print("Done!")

@@ -148,20 +148,67 @@ data2['n_incidents'] = 0
 for index, state in data2['state_name'].iteritems():
     data2.at[index, 'n_incidents'] = (data['state'] == state).sum()
 
+data2['domestic_violence'] = 0
+data2['robbery'] = 0
+data2['home_invasion'] = 0
+data2['drug_involvement'] = 0
+data2['suicide'] = 0
+data2['officer_involved'] = 0
+data2['accidental'] = 0
+data2['dgu_evidence'] = 0
+data2['gang_involvement'] = 0
+data2['n_killed'] = 0
+data2['n_injured'] = 0
+for index, state in data2['state_name'].iteritems():
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'n_killed'] = selected_data['n_killed'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'n_injured'] = selected_data['n_injured'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'domestic_violence'] = selected_data['domestic_violence'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'robbery'] = selected_data['robbery'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'home_invasion'] = selected_data['home_invasion'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'drug_involvement'] = selected_data['drug_involvement'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'suicide'] = selected_data['suicide'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'officer_involved'] = selected_data['officer_involved'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'accidental'] = selected_data['accidental'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'dgu_evidence'] = selected_data['dgu_evidence'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'gang_involvement'] = selected_data['gang_involvement'].sum()
+
+
 print(data2)
-
-df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv')
-
-for col in df.columns:
-    df[col] = df[col].astype(str)
+for col in data2.columns:
+    data2[col] = data2[col].astype(str)
 
 scl = [[0.0, 'rgb(242,240,247)'],[0.2, 'rgb(218,218,235)'],[0.4, 'rgb(188,189,220)'],\
             [0.6, 'rgb(158,154,200)'],[0.8, 'rgb(117,107,177)'],[1.0, 'rgb(84,39,143)']]
 
 
 
-df['text'] = data2['state_name'] + '<br>' 
-#     'Beef '+df['beef']+' TEST '+df['dairy']+'<br>'+\
+data2['text'] = 'State: ' +data2['state_name'] + '<br>' + 'Killed: ' + data2['n_killed'] + '<br>' + \
+'Injured: ' + data2['n_injured'] + '<br>' + 'Suicide: ' + data2['suicide'] + '<br>' + 'Robberies: ' + data2['robbery'] \
++ '<br>' + 'Drugs involved: ' + data2['drug_involvement'] + '<br>' + 'Officer involved: ' + data2['officer_involved'] +\
+ '<br>' + 'Gangs involved: ' + data2['gang_involvement'] + '<br>' + 'Home invasion: ' + data2['home_invasion'] + \
+ '<br>' + 'Domestic violence: ' + data2['domestic_violence'] + '<br>' + 'Self-defense: ' + data2['dgu_evidence']
+#+' TEST '+df['dairy']+'<br>'+\
 #     'Fruits '+df['total fruits']+' Veggies ' + df['total veggies']+'<br>'+\
 #     'Wheat '+df['wheat']+' Corn '+df['corn']
 
@@ -170,9 +217,9 @@ data = [ dict(
         colorscale = scl,
         autocolorscale = False,
         locations = data2['state_code'],
+        text = data2['text'],
         z = data2['n_incidents'],
         locationmode = 'USA-states',
-        text = df['text'],
         marker = dict(
             line = dict (
                 color = 'rgb(255,255,255)',
@@ -187,7 +234,7 @@ layout = dict(
         geo = dict(
             scope='usa',
             projection=dict( type='albers usa' ),
-            showlakes = True,
+            showlakes = False,
             lakecolor = 'rgb(255, 255, 255)'),
              )
 
