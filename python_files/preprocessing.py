@@ -10,6 +10,7 @@ import re
 from pandas import ExcelFile
 from geopy import geocoders
 import time
+import sklearn
 # unzipping and reading full dataset
 zf = zipfile.ZipFile('datasets/full_dataset_raw.csv.zip')
 
@@ -95,25 +96,24 @@ for index, item in data["latitude"].iteritems():
 # bewerkingen gender kolom
 data["participant_gender"] = data["participant_gender"].fillna('male')
 data["participant_gender"] = data["participant_gender"].str.lower()
-new_gender_column = []
-for gender in data["participant_gender"]:
+data["male"] = 0
+data["female"] = 0
+for index, gender in data["participant_gender"].iteritems():
     gender = gender.replace("||", ",")
     gender = gender.replace("|", ",")
     gender = re.sub(r'\d::','' ,gender)
     gender = re.sub(r'\d:','' ,gender)
     gender = re.sub(r'\dmale','male' ,gender)
     genderList = gender.split(",")
-    # male only involved, give value 0
-    if "male" in genderList and not "female" in genderList:
-        new_gender_column.append('0')
-    # female only involved, give value 1
-    elif "female" in genderList and not "male" in genderList:
-        new_gender_column.append('1')
-    # male and female involved, give value 2
-    elif "male" in genderList and "female" in genderList:
-        new_gender_column.append('2')
+    # male  involved, give value 1
+    if "male" in genderList:
+        data.at[index, 'male'] = 1
+    # female involved, give value 1
+    if "female" in genderList:
+        data.at[index, 'female'] = 1
 
-data["participant_gender"] = new_gender_column
+data = data.drop("participant_gender", 1)
+
 
 # bewerkingen gender kolom
 data["participant_age_group"] = data["participant_age_group"].fillna('Adult 18+')
@@ -202,6 +202,9 @@ for index, item in data["incident_characteristics"].iteritems():
 data = data.drop("incident_characteristics", 1)
 #print("itemcount = ",itemcount)
 # counting fatal incidents
+
+
+
 dead_count = 0
 for number_killed in data["n_killed"]:
     if number_killed > 0:
@@ -209,12 +212,74 @@ for number_killed in data["n_killed"]:
 #print(dead_count)
 
 # labelling cities and states with digits
-le = preprocessing.LabelEncoder()
+#le = preprocessing.LabelEncoder()
 #data['city_or_county'] = le.fit_transform(data['city_or_county'])
-#ata['state'] = le.fit_transform(data['state'])
+#data['state'] = le.fit_transform(data['state'])
 
 # reverse LabelEncoder
 #data['city_or_county'] = le.inverse_transform(data['city_or_county'])
+
+#----- Add state_population--------
+
+dictio ={'California': 39144818,
+'Texas': 27469114,
+'Florida':20271272,
+'New York': 19795791,
+'Illinois':12859995,
+'Pennsylvania':12802503,
+'Ohio':11613423,
+'Georgia':10214860,
+'North Carolina':10042802,
+'Michigan':9922576,
+'New Jersey':8958013,
+'Virginia':8382993,
+'Washington':7170351,
+'Arizona':6828065,
+'Massachusetts':6794422,
+'Indiana':6619680,
+'Tennessee':6600299,
+'Missouri':6083672,
+'Maryland':6006401,
+'Wisconsin':5771337,
+'Minnesota':5489594,
+'Colorado':5456574,
+'South Carolina':4896146,
+'Alabama':4858979,
+'Louisiana':4670724,
+'Kentucky':4425092,
+'Oregon':4028977,
+'Oklahoma':3911338,
+'Connecticut':3590886,
+'Iowa':3123899,
+'Utah':2995919,
+'Mississippi':2992333,
+'Arkansas':2978204,
+'Kansas':2911641,
+'Nevada':2890845,
+'New Mexico':2085109,
+'Nebraska':1896190,
+'West Virginia':1844128,
+'Idaho':1654930,
+'Hawaii':1431603,
+'New Hampshire':1330608,
+'Maine':1329328,
+'Rhode Island':1056298,
+'Montana':1032949,
+'Delaware':945934,
+'South Dakota':858469,
+'North Dakota':756927,
+'Alaska':738432,
+'Vermont':626042,
+'Wyoming':586107,
+'District of Columbia': 693972}
+
+population_list = []
+
+for state in data['state']:
+    population_list.append(dictio[state])
+
+data['state_population'] = population_list
+
 
 print("Preprocessing successful!")
 print("Writing output to .xlsx file...")
