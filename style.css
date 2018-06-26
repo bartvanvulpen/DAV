@@ -15,6 +15,14 @@ body {
     background-color: #333333;
     
 }
+.simpleplots {
+	width: 100%;
+	height: 500px;
+	position: relative;
+	top: -262px;
+    background-color: white;
+    
+}
 
 
 .title {
@@ -40,7 +48,7 @@ body {
 
 .differences_state {
 	position: relative;
-	height: 1500px;
+	height: 950px;
 	background-color: white;
 	color: black;
 	
@@ -56,6 +64,8 @@ body {
 	
 	
 }
+
+
 .bar{
     position:absolute;
     top:0;
@@ -68,6 +78,7 @@ body {
 hr {
     height: 12px;
     border: 0;
+   
     box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
 }
 

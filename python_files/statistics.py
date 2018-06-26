@@ -36,226 +36,226 @@ data = pd.read_excel('datasets/MASTER_DATASET.xlsx')
 # plt.bar(list(state_death.keys()), state_death.values(), color='g')
 # plt.show()
 
-# -----------Gun violence by characteristics 2014-2017-------------
-#
-# robbery_count = []
-# drug_count = []
-# accidental_count = []
-# suicide_count = []
-# gang_count = []
-# officer_count = []
-# domestic_count = []
-# year_characts = {}
-# for index, date in data['date'].iteritems():
-#     robbery_count.append(data['robbery'][index])
-#     drug_count.append(data['drug_involvement'][index])
-#     accidental_count.append(data['accidental'][index])
-#     suicide_count.append(data['suicide'][index])
-#     gang_count.append(data['gang_involvement'][index])
-#     officer_count.append(data['officer_involved'][index])
-#     domestic_count.append(data['domestic_violence'][index])
-#     #print(index)
-#     if date == 1412 and data['date'][index + 1] == 1501:
-#         year_characts['2014'] = [sum(robbery_count), sum(drug_count), sum(accidental_count), sum(suicide_count), sum(gang_count), sum(officer_count), sum(domestic_count)]
-#         robbery_count = []
-#         drug_count = []
-#         accidental_count = []
-#         suicide_count = []
-#         gang_count = []
-#         officer_count = []
-#         domestic_count = []
-#     if date == 1512 and data['date'][index + 1] == 1601:
-#         year_characts['2015'] = [sum(robbery_count), sum(drug_count), sum(accidental_count), sum(suicide_count), sum(gang_count), sum(officer_count), sum(domestic_count)]
-#         robbery_count = []
-#         drug_count = []
-#         accidental_count = []
-#         suicide_count = []
-#         gang_count = []
-#         officer_count = []
-#         domestic_count = []
-#     if date == 1612 and data['date'][index + 1] == 1701:
-#         year_characts['2016'] = [sum(robbery_count), sum(drug_count), sum(accidental_count), sum(suicide_count), sum(gang_count), sum(officer_count), sum(domestic_count)]
-#         robbery_count = []
-#         drug_count = []
-#         accidental_count = []
-#         suicide_count = []
-#         gang_count = []
-#         officer_count = []
-#         domestic_count = []
-#     if date == 1712 and data['date'][index + 1] == 1801:
-#         year_characts['2017'] = [sum(robbery_count), sum(drug_count), sum(accidental_count), sum(suicide_count), sum(gang_count), sum(officer_count), sum(domestic_count)]
-#         robbery_count = []
-#         drug_count = []
-#         accidental_count = []
-#         suicide_count = []
-#         gang_count = []
-#         officer_count = []
-#         domestic_count = []
-#         break
-#
-#
-#
-# print(year_characts)
-#
-# import matplotlib.pyplot as plt
-# import numpy as np
-# import pandas as pd
-# from io import StringIO
-#
-#
-#
-#
-# columns = ['year', 'robbery', 'drug', 'accidental', 'suicide', 'gang', 'officer', 'domestic']
-# df = pd.DataFrame(columns=columns)
-# years = []
-# robbery_count = []
-# drug_count = []
-# accidental_count = []
-# suicide_count = []
-# gang_count = []
-# officer_count = []
-# domestic_count = []
-# for key in year_characts:
-#     years.append(key)
-#     robbery_count.append(year_characts[key][0])
-#     drug_count.append(year_characts[key][1])
-#     accidental_count.append(year_characts[key][2])
-#     suicide_count.append(year_characts[key][3])
-#     gang_count.append(year_characts[key][4])
-#     officer_count.append(year_characts[key][5])
-#     domestic_count.append(year_characts[key][6])
-#
-#
-#
-# df['year'] = years
-# df['robbery'] = robbery_count
-# df['drug'] = drug_count
-# df['accidental'] = accidental_count
-# df['suicide'] = suicide_count
-# df['gang'] = gang_count
-# df['officer'] = officer_count
-# df['domestic'] = domestic_count
-#
-# print (df)
-#
-#
-#
-# # Setting the positions and width for the bars
-# pos = list(range(len(df['robbery'])))
-# width = 0.11
-#
-# # Plotting the bars
-# fig, ax = plt.subplots(figsize=(10,5))
-#
-# # Create a bar with pre_score data,
-# # in position pos,
-# plt.bar(pos,
-#         #using df['pre_score'] data,
-#         df['robbery'],
-#         # of width
-#         width,
-#         # with alpha 0.5
-#         alpha=0.5,
-#         # with color
-#         color='orange',
-#         # with label the first value in first_name
-#         label=df['year'][0])
-#
-# # Create a bar with mid_score data,
-# # in position pos + some width buffer,
-# plt.bar([p + width for p in pos],
-#         #using df['mid_score'] data,
-#         df['drug'],
-#         # of width
-#         width,
-#         # with alpha 0.5
-#         alpha=0.5,
-#         # with color
-#         color='red',
-#         # with label the second value in first_name
-#         label=df['year'][1])
-#
-# # Create a bar with post_score data,
-# # in position pos + some width buffer,
-# plt.bar([p + width*2 for p in pos],
-#         #using df['post_score'] data,
-#         df['accidental'],
-#         # of width
-#         width,
-#         # with alpha 0.5
-#         alpha=0.5,
-#         # with color
-#         color='yellow',
-#         # with label the third value in first_name
-#         label=df['year'][2])
-#
-# plt.bar([p + width*3 for p in pos],
-#         #using df['post_score'] data,
-#         df['suicide'],
-#         # of width
-#         width,
-#         # with alpha 0.5
-#         alpha=0.5,
-#         # with color
-#         color='blue',
-#         # with label the third value in first_name
-#         label=df['year'][3])
-# plt.bar([p + width*4 for p in pos],
-#         #using df['post_score'] data,
-#         df['gang'],
-#         # of width
-#         width,
-#         # with alpha 0.5
-#         alpha=0.5,
-#         # with color
-#         color='black',
-#         # with label the third value in first_name
-#         label=df['year'][0])
-#
-# plt.bar([p + width*5 for p in pos],
-#         #using df['post_score'] data,
-#         df['officer'],
-#         # of width
-#         width,
-#         # with alpha 0.5
-#         alpha=0.5,
-#         # with color
-#         color='green',
-#         # with label the third value in first_name
-#         label=df['year'][1])
-#
-# plt.bar([p + width*6 for p in pos],
-#         #using df['post_score'] data,
-#         df['domestic'],
-#         # of width
-#         width,
-#         # with alpha 0.5
-#         alpha=0.5,
-#         # with color
-#         color='grey',
-#         # with label the third value in first_name
-#         label=df['year'][2])
-#
-# # Set the y axis label
-# ax.set_ylabel('Amount')
-#
-# # Set the chart's title
-# ax.set_title('Gun incidents by characteristics')
-#
-# # Set the position of the x ticks
-# ax.set_xticks([p + 3 * width for p in pos])
-#
-# # Set the labels for the x ticks
-# ax.set_xticklabels(df['year'])
-#
-# # Setting the x-axis and y-axis limits
-# plt.xlim(min(pos)-width*2, max(pos)+width*8)
-# plt.ylim([0, 23000] )
-#
-# # Adding the legend and showing the plot
-# plt.legend(['Robbery', 'Drug involvement', 'Accidental', 'Suicide', 'Gang involvement', 'Officer involved', 'Domestic Violence'], loc='upper left')
-# plt.grid()
-# plt.show()
+#-----------Gun violence by characteristics 2014-2017-------------
+
+robbery_count = []
+drug_count = []
+accidental_count = []
+suicide_count = []
+gang_count = []
+officer_count = []
+domestic_count = []
+year_characts = {}
+for index, date in data['date'].iteritems():
+    robbery_count.append(data['robbery'][index])
+    drug_count.append(data['drug_involvement'][index])
+    accidental_count.append(data['accidental'][index])
+    suicide_count.append(data['suicide'][index])
+    gang_count.append(data['gang_involvement'][index])
+    officer_count.append(data['officer_involved'][index])
+    domestic_count.append(data['domestic_violence'][index])
+    #print(index)
+    if date == 1412 and data['date'][index + 1] == 1501:
+        year_characts['2014'] = [sum(robbery_count), sum(drug_count), sum(accidental_count), sum(suicide_count), sum(gang_count), sum(officer_count), sum(domestic_count)]
+        robbery_count = []
+        drug_count = []
+        accidental_count = []
+        suicide_count = []
+        gang_count = []
+        officer_count = []
+        domestic_count = []
+    if date == 1512 and data['date'][index + 1] == 1601:
+        year_characts['2015'] = [sum(robbery_count), sum(drug_count), sum(accidental_count), sum(suicide_count), sum(gang_count), sum(officer_count), sum(domestic_count)]
+        robbery_count = []
+        drug_count = []
+        accidental_count = []
+        suicide_count = []
+        gang_count = []
+        officer_count = []
+        domestic_count = []
+    if date == 1612 and data['date'][index + 1] == 1701:
+        year_characts['2016'] = [sum(robbery_count), sum(drug_count), sum(accidental_count), sum(suicide_count), sum(gang_count), sum(officer_count), sum(domestic_count)]
+        robbery_count = []
+        drug_count = []
+        accidental_count = []
+        suicide_count = []
+        gang_count = []
+        officer_count = []
+        domestic_count = []
+    if date == 1712 and data['date'][index + 1] == 1801:
+        year_characts['2017'] = [sum(robbery_count), sum(drug_count), sum(accidental_count), sum(suicide_count), sum(gang_count), sum(officer_count), sum(domestic_count)]
+        robbery_count = []
+        drug_count = []
+        accidental_count = []
+        suicide_count = []
+        gang_count = []
+        officer_count = []
+        domestic_count = []
+        break
+
+
+
+print(year_characts)
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from io import StringIO
+
+
+
+
+columns = ['year', 'robbery', 'drug', 'accidental', 'suicide', 'gang', 'officer', 'domestic']
+df = pd.DataFrame(columns=columns)
+years = []
+robbery_count = []
+drug_count = []
+accidental_count = []
+suicide_count = []
+gang_count = []
+officer_count = []
+domestic_count = []
+for key in year_characts:
+    years.append(key)
+    robbery_count.append(year_characts[key][0])
+    drug_count.append(year_characts[key][1])
+    accidental_count.append(year_characts[key][2])
+    suicide_count.append(year_characts[key][3])
+    gang_count.append(year_characts[key][4])
+    officer_count.append(year_characts[key][5])
+    domestic_count.append(year_characts[key][6])
+
+
+
+df['year'] = years
+df['robbery'] = robbery_count
+df['drug'] = drug_count
+df['accidental'] = accidental_count
+df['suicide'] = suicide_count
+df['gang'] = gang_count
+df['officer'] = officer_count
+df['domestic'] = domestic_count
+
+print (df)
+
+
+
+# Setting the positions and width for the bars
+pos = list(range(len(df['robbery'])))
+width = 0.11
+
+# Plotting the bars
+fig, ax = plt.subplots(figsize=(12,6))
+
+# Create a bar with pre_score data,
+# in position pos,
+plt.bar(pos,
+        #using df['pre_score'] data,
+        df['robbery'],
+        # of width
+        width,
+        # with alpha 0.5
+        alpha=0.5,
+        # with color
+        color='orange',
+        # with label the first value in first_name
+        label=df['year'][0])
+
+# Create a bar with mid_score data,
+# in position pos + some width buffer,
+plt.bar([p + width for p in pos],
+        #using df['mid_score'] data,
+        df['drug'],
+        # of width
+        width,
+        # with alpha 0.5
+        alpha=0.5,
+        # with color
+        color='red',
+        # with label the second value in first_name
+        label=df['year'][1])
+
+# Create a bar with post_score data,
+# in position pos + some width buffer,
+plt.bar([p + width*2 for p in pos],
+        #using df['post_score'] data,
+        df['accidental'],
+        # of width
+        width,
+        # with alpha 0.5
+        alpha=0.5,
+        # with color
+        color='yellow',
+        # with label the third value in first_name
+        label=df['year'][2])
+
+plt.bar([p + width*3 for p in pos],
+        #using df['post_score'] data,
+        df['suicide'],
+        # of width
+        width,
+        # with alpha 0.5
+        alpha=0.5,
+        # with color
+        color='blue',
+        # with label the third value in first_name
+        label=df['year'][3])
+plt.bar([p + width*4 for p in pos],
+        #using df['post_score'] data,
+        df['gang'],
+        # of width
+        width,
+        # with alpha 0.5
+        alpha=0.5,
+        # with color
+        color='black',
+        # with label the third value in first_name
+        label=df['year'][0])
+
+plt.bar([p + width*5 for p in pos],
+        #using df['post_score'] data,
+        df['officer'],
+        # of width
+        width,
+        # with alpha 0.5
+        alpha=0.5,
+        # with color
+        color='green',
+        # with label the third value in first_name
+        label=df['year'][1])
+
+plt.bar([p + width*6 for p in pos],
+        #using df['post_score'] data,
+        df['domestic'],
+        # of width
+        width,
+        # with alpha 0.5
+        alpha=0.5,
+        # with color
+        color='grey',
+        # with label the third value in first_name
+        label=df['year'][2])
+
+# Set the y axis label
+ax.set_ylabel('Amount')
+
+# Set the chart's title
+ax.set_title('Gun incidents by characteristics')
+
+# Set the position of the x ticks
+ax.set_xticks([p + 3 * width for p in pos])
+
+# Set the labels for the x ticks
+ax.set_xticklabels(df['year'])
+
+# Setting the x-axis and y-axis limits
+plt.xlim(min(pos)-width*2, max(pos)+width*8)
+plt.ylim([0, 23000] )
+
+# Adding the legend and showing the plot
+plt.legend(['Robbery', 'Drug involvement', 'Accidental', 'Suicide', 'Gang involvement', 'Officer involved', 'Domestic Violence'], loc='upper left')
+plt.grid()
+plt.show()
 
 #------------------------Mapping lat and longitudes on US Map using offline map + Google Maps----------------------
 from bokeh.sampledata import us_states
