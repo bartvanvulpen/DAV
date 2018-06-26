@@ -54,6 +54,15 @@ body {
 	
 }
 
+.fact1 {
+    border-radius: 25px;
+	position: relative;
+	top: -20px;
+	width: 520px;
+	background-color: #333333;
+	height: 300px;
+}
+
 .differences_state h2{
 	position: relative;
 	top: 10px;
@@ -63,6 +72,24 @@ body {
 	font-style: normal;
 	
 	
+}
+
+#my-div
+{
+	
+    max-width    : 889px;
+    height   : 449px;
+    overflow : hidden;
+    position : relative;
+}
+ 
+#my-iframe
+{
+    position : absolute;
+    top      : -320px;
+    left     : -250px;
+    width    : 1200px;
+    height   : 1200px;
 }
 
 
