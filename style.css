@@ -1,6 +1,6 @@
 body {
 	margin: 0;
-	background-color: #333333;
+	background-color: white;
 	text-align: center;
 	font-family: 'Raleway', sans-serif;
 	font-weight: 200;
@@ -8,10 +8,17 @@ body {
 	
 	
 }
-
+.header {
+	width: 100%;
+	
+	margin-top: -40px;
+    background-color: #333333;
+    
+}
 
 
 .title {
+    padding-top: 20px;
 	position: relative;
 	font-size: 60px;
 	color: white;
@@ -28,9 +35,12 @@ body {
 	
 }
 
+
+
+
 .differences_state {
 	position: relative;
-	height: 600px;
+	height: 1500px;
 	background-color: white;
 	color: black;
 	
@@ -42,6 +52,7 @@ body {
 	color: black;
 	font-size: 20px;
 	font-weight: 200;
+	font-style: normal;
 	
 	
 }
@@ -51,5 +62,12 @@ body {
     left:0;
     width:100%;
     height:30px;
+    
+}
+
+hr {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
 }
 

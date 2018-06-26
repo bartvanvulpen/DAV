@@ -260,7 +260,8 @@ data = pd.read_excel('datasets/MASTER_DATASET.xlsx')
 #------------------------Mapping lat and longitudes on US Map using offline map + Google Maps----------------------
 from bokeh.sampledata import us_states
 from bokeh.plotting import *
-
+from bokeh.plotting import figure
+from bokeh.embed import components
 us_states = us_states.data.copy()
 
 del us_states["HI"]
@@ -272,11 +273,11 @@ state_xs = [us_states[code]["lons"] for code in us_states]
 state_ys = [us_states[code]["lats"] for code in us_states]
 
 # init figure
-p = figure(title="Shooting incidents USA 2013-2018",
-           toolbar_location="left", plot_width=1100, plot_height=700, x_range=(-126, -66), y_range=(24, 50))
+p1 = figure(title="",
+           toolbar_location="left", plot_width=800, plot_height=509, x_range=(-126, -66), y_range=(24, 50))
 
 # Draw state lines
-p.patches(state_xs, state_ys, fill_alpha=0.0,
+p1.patches(state_xs, state_ys, fill_alpha=0.0,
     line_color="#884444", line_width=1.5)
 
 
@@ -286,21 +287,21 @@ x = data['longitude'].values
 y = data['latitude'].values
 
 # The scatter markers
-p.circle(x, y, size=5, color='red', alpha=0.2)
+p1.circle(x, y, size=5, color='red', alpha=0.2)
 
 # output to static HTML file
-output_file("mapped_long_lat.html")
+output_file("figures/mapped_long_lat.html")
 
 # show results
-show(p)
+#show(p1)
 
 from bokeh.io import output_file, show
 from bokeh.models import ColumnDataSource, GMapOptions
 from bokeh.plotting import gmap
 
-output_file("gmap.html")
+output_file("figures/gmap.html")
 
-map_options = GMapOptions(lat=40, lng=-95.7394, map_type="roadmap", zoom=3,)
+map_options = GMapOptions(lat=38.5, lng=-95.7394,  map_type="roadmap", zoom=4,)
 
 # For GMaps to function, Google requires you obtain and enable an API key:
 #
@@ -308,7 +309,7 @@ map_options = GMapOptions(lat=40, lng=-95.7394, map_type="roadmap", zoom=3,)
 #
 # Replace the value below with your personal API key:
 api_key = "AIzaSyDhp4ma4XSYbiklD8oh9CwscyHx_EX6slE"
-p = gmap(api_key, map_options, title="Long Lat")
+p = gmap(api_key, map_options, title="", plot_width=800, plot_height=475,)
 
 source = ColumnDataSource(
     data=dict(lat=y,
