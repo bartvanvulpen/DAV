@@ -21,7 +21,7 @@ body {
 	float: center;
 }
 
-h2 {
+.header h2 {
 	color: white;
 	font-weight: 200;
 	font-style: italic;
@@ -29,7 +29,26 @@ h2 {
 }
 
 .differences_state {
+	position: relative;
 	height: 600px;
 	background-color: white;
+	color: black;
 	
+}
+
+.differences_state h2{
+	position: relative;
+	top: 20px;
+	color: black;
+	font-size: 20px;
+	font-weight: 200;
+	
+	
+}
+.bar{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:30px;
 }
