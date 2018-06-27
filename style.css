@@ -57,6 +57,7 @@ body {
 .fact1 {
     border-radius: 25px;
 	position: relative;
+	
 	top: -20px;
 	width: 520px;
 	background-color: #333333;
@@ -65,17 +66,19 @@ body {
 
 .ml1 {
     border-radius: 25px;
-	width: 700px;
-	height: 613px;
+	max-width: 700px;
+	max-height: 613px;
 	margin-top: -60px;
 	background-color: white;
+	overflow: hidden;
 	
 }
 
 .ml2 {
+	overflow: hidden;
     border-radius: 25px;
-	width: 700px;
-	height: 613px;
+	max-width: 700px;
+	max-height: 613px;
 	background-color: white;
 	margin-top: -60px;
 }
