@@ -159,6 +159,11 @@ data2['dgu_evidence'] = 0
 data2['gang_involvement'] = 0
 data2['n_killed'] = 0
 data2['n_injured'] = 0
+data2['adults_involved'] = 0
+data2['children_involved'] = 0
+data2['teens_involved'] = 0
+data2['male'] = 0
+data2['female'] = 0
 for index, state in data2['state_name'].iteritems():
     selected_data = data.loc[data['state'] == state]
     data2.at[index, 'n_killed'] = selected_data['n_killed'].sum()
@@ -193,6 +198,20 @@ for index, state in data2['state_name'].iteritems():
     selected_data = data.loc[data['state'] == state]
     data2.at[index, 'gang_involvement'] = selected_data['gang_involvement'].sum()
 
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'teens_involved'] = selected_data['gang_involvement'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'adults_involved'] = selected_data['adults_involved'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'children_involved'] = selected_data['children_involved'].sum()
+
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'male'] = selected_data['male'].sum()
+    selected_data = data.loc[data['state'] == state]
+    data2.at[index, 'female'] = selected_data['female'].sum()
+
 
 print(data2)
 for col in data2.columns:
@@ -207,7 +226,10 @@ data2['text'] = 'State: ' +data2['state_name'] + '<br>' + 'Killed: ' + data2['n_
 'Injured: ' + data2['n_injured'] + '<br>' + 'Suicide: ' + data2['suicide'] + '<br>' + 'Robberies: ' + data2['robbery'] \
 + '<br>' + 'Drugs involved: ' + data2['drug_involvement'] + '<br>' + 'Officer involved: ' + data2['officer_involved'] +\
  '<br>' + 'Gangs involved: ' + data2['gang_involvement'] + '<br>' + 'Home invasion: ' + data2['home_invasion'] + \
- '<br>' + 'Domestic violence: ' + data2['domestic_violence'] + '<br>' + 'Self-defense: ' + data2['dgu_evidence']
+ '<br>' + 'Domestic violence: ' + data2['domestic_violence'] + '<br>' + 'Self-defense: ' + data2['dgu_evidence'] + \
+ '<br>' + 'Male involved: ' + data2['male'] + '<br>' + 'Female involved: ' + data2['female'] + \
+ '<br>' + 'Adults involved: ' + data2['adults_involved'] + '<br>' + 'Teens involved: ' + data2['teens_involved'] + \
+ '<br>' + 'Children involved: ' + data2['children_involved']
 #+' TEST '+df['dairy']+'<br>'+\
 #     'Fruits '+df['total fruits']+' Veggies ' + df['total veggies']+'<br>'+\
 #     'Wheat '+df['wheat']+' Corn '+df['corn']
@@ -230,7 +252,7 @@ data = [ dict(
         ) ]
 
 layout = dict(
-        title = 'Jan 2013 - March 2018 Gun Violence in the USA by State<br>(Hover for breakdown)',
+        title = '',
         geo = dict(
             scope='usa',
             projection=dict( type='albers usa' ),

@@ -41,7 +41,7 @@ print("Done.")
 
 print("Splitting dataset into training set and test set...")
 train, test = train_test_split(data, test_size=0.2)
-#train = train.drop(train.index[1000:239399])
+train = train.drop(train.index[1000:239399])
 print("Number of dimensions:", len(train.columns))
 print(train)
 print("Done.")
@@ -62,7 +62,7 @@ tsne_data = pd.DataFrame(embedding_array[0:, 0:,])
 plt.figure(figsize=(18, 16), dpi=180)
 plt.scatter(tsne_data[0] , tsne_data[1], s=1,c='g', alpha=0.3)
 plt.title("Dimensions reduced with t-SNE")
-plt.savefig("figures/tsne.png")
+plt.savefig("figures/tsnet.png")
 plt.show()
 
 print("Clustering with KMeans...")
@@ -81,7 +81,7 @@ plt.plot(K, distortions, 'bx-')
 plt.xlabel('k')
 plt.ylabel('Distortion')
 plt.title('The Elbow Method showing the optimal k for tsne_data')
-plt.savefig("figures/elbowmethod.png")
+plt.savefig("figures/elbowmethodt.png")
 plt.show()
 
 ## Cluster dimension-reduced data with KMeans, with n_cluster equal to k
@@ -90,7 +90,8 @@ K = 3
 km = KMeans(n_clusters=K, init='k-means++', n_init=100)
 km.fit(tsne_data)
 x = km.fit_predict(tsne_data)
-
+embedding_array = bhtsne.run_bh_tsne(tsne_data, no_dims=71, perplexity=4, initial_dims=data1.shape[1], verbose=True)
+print(embedding_array)
 # plot tsne_dat
 tsne_data["cluster"] = x
 color_list = []
@@ -106,7 +107,16 @@ for cluster in tsne_data['cluster']:
 tsne_data['color'] = color_list
 plt.figure(figsize=(18, 16), dpi=360)
 plt.scatter(tsne_data[0], tsne_data[1], s=1,c=tsne_data['color'], alpha=0.3)
-plt.savefig("figures/kmeans_tsne.png")
+plt.savefig("figures/kmeans_tsnet.png")
 plt.title('Clustered t-SNE with k-Means')
 plt.show()
 print("Done!")
+train['cluster'] = x
+train = train.sort_values('cluster')
+print("Preprocessing successful!")
+print("Writing output to .xlsx file...")
+#write processed dataframe to Excel testing sheet
+writer = ExcelWriter('datasets/clustered_dataset.xlsx')
+train.to_excel(writer,'testingsheet')
+writer.save()
+print("Output written to .xlsx file!")
