@@ -84,7 +84,7 @@ dictio ={'California': 1,
 print("Structuring data for time slider...")
 data2 = pd.DataFrame(list(dictio.items()), columns=['state_name', 'state_population'])
 #data = data.drop(data.index[10000:239399])
-slider_data = pd.DataFrame(columns=('state', 'side', 'month', 'n_incidents', 'n_male', 'n_female','n_killed', 'n_injured', "suicide", "robbery", "drug_involvement", 'accidental'))
+slider_data = pd.DataFrame(columns=('state', 'side', 'month', 'n_incidents', 'n_teens', 'n_children', 'n_male', 'n_female','n_killed', 'n_injured', "suicide", "robbery", "drug_involvement", 'accidental'))
 
 for date in range(1401, 1804):
     print(date)
@@ -109,6 +109,8 @@ for date in range(1401, 1804):
         n_injured = sum(select_data['n_injured'])
         suicide = sum(select_data['suicide'])
         robbery = sum(select_data['robbery'])
+        teens = sum(select_data['teens_involved'])
+        children = sum(select_data['children_involved'])
         n_incidents = len(select_data)
         if dictio[state1] == 1:
             side = 'West'
@@ -116,7 +118,7 @@ for date in range(1401, 1804):
             side = 'East'
         drug_involvement = sum(select_data['drug_involvement'])
         accidental = sum(select_data['accidental'])
-        list = [state, side, month, n_incidents, n_male, n_female, n_killed, n_injured, suicide, robbery, drug_involvement, accidental]
+        list = [state, side, month, n_incidents,teens, children, n_male, n_female, n_killed, n_injured, suicide, robbery, drug_involvement, accidental]
         slider_data.loc[slider_data.shape[0]] = list
 slider_data = slider_data.sort_values(['state', 'month'])
 print(slider_data)
