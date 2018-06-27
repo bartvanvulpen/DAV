@@ -86,9 +86,9 @@ body {
 #my-iframe
 {
     position : absolute;
-    top      : -320px;
-    left     : -250px;
-    width    : 1200px;
+    top      : -100px;
+    left     : -100px;
+    width    : 1000px;
     height   : 1200px;
 }
 
