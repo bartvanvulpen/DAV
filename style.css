@@ -63,6 +63,24 @@ body {
 	height: 300px;
 }
 
+.ml1 {
+    border-radius: 25px;
+	width: 700px;
+	height: 613px;
+	margin-top: -60px;
+	background-color: white;
+	
+}
+
+.ml2 {
+    border-radius: 25px;
+	width: 700px;
+	height: 613px;
+	background-color: white;
+	margin-top: -60px;
+}
+
+
 .differences_state h2{
 	position: relative;
 	top: 10px;
@@ -91,10 +109,15 @@ body {
     width    : 1000px;
     height   : 1200px;
 }
-
+.ML {
+	background-color: #333333;
+	height: 1000px;
+	position: relative;
+	top: -38px;
+}
 
 .bar{
-    position:absolute;
+    position: absolute;
     top:0;
     left:0;
     width:100%;
