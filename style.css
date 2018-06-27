@@ -17,7 +17,7 @@ body {
 }
 .simpleplots {
 	width: 100%;
-	height: 1600px;
+	height: 1650px;
 	position: relative;
 	top: -262px;
     background-color: white;
@@ -111,6 +111,9 @@ body {
     overflow : hidden;
     position : relative;
 }
+.general {
+	height: 500px;
+}
 #my-div2
 {
 	
@@ -130,7 +133,7 @@ body {
 }
 .ML {
 	background-color: #333333;
-	height: 1600px;
+	height: 2600px;
 	position: relative;
 	top: 800px;
 }
@@ -142,6 +145,10 @@ body {
     width:100%;
     height:30px;
     
+}
+.general {
+	height: 500px;
+	background-color: white;
 }
 
 hr {
