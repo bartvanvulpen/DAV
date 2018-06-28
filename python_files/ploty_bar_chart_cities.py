@@ -71,12 +71,12 @@ data = data.sort_index()
 trace1 = go.Bar(
     x= data['city'],
     y= data['n_injured'],
-    name='People killed'
+    name='People injured'
 )
 trace2 = go.Bar(
     x= data['city'],
     y= data['n_killed'],
-    name='People injured'
+    name='People killed'
 )
 
 trace3 = go.Bar(

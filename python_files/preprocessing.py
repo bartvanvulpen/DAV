@@ -28,7 +28,7 @@ for column in data.columns:
     items = data[column]
     count = items.isnull().sum()
     percentage = (count / total_count) * 100
-    #print(column, "=", percentage)
+    print(column, "=", percentage)
     if percentage >= 40.0:
         data = data.drop(column, 1)
 # remove other irrelevent columns
