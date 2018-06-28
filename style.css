@@ -17,7 +17,7 @@ body {
 }
 .simpleplots {
 	width: 100%;
-	height: 1650px;
+	height: 2200px;
 	position: relative;
 	top: -262px;
     background-color: white;
@@ -48,7 +48,7 @@ body {
 
 .differences_state {
 	position: relative;
-	height: 1900px;
+	height: 2350px;
 	background-color: white;
 	color: black;
 	
@@ -133,7 +133,7 @@ body {
 }
 .ML {
 	background-color: #333333;
-	height: 2600px;
+	height: 2650px;
 	position: relative;
 	top: 800px;
 }
